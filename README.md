@@ -57,7 +57,7 @@ The Mifos Chatbot is a cutting-edge project exploring the use of generative AI t
    OPENAI_API_KEY= "your_api_key_here"
    ```
    
-4. 3. Navigate to Web-App directory:
+4. Navigate to Web-App directory:
    ```
    cd Web-App
    ```
