@@ -44,20 +44,24 @@ The Mifos Chatbot is a cutting-edge project exploring the use of generative AI t
 1. Clone the repository:
    ```
    git clone https://github.com/openMF/community-ai.git
-   cd Web-App
    ```
 
 2. Install required dependencies:
    ```
    pip install -r requirements.txt
    ```
-
+   
 3. Set up your OpenAI API key:
    Create a `.env` file in the root directory and add:
    ```
-   OPENAI_API_KEY=your_api_key_here
+   OPENAI_API_KEY= "your_api_key_here"
    ```
-
+   
+4. 3. Navigate to Web-App directory:
+   ```
+   cd Web-App
+   ```
+   
 ## Usage
 
 To run the chatbot locally, the ipynb file can be used. The Gradio interface will start, allowing you to interact with the chatbot. 
