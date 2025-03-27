@@ -26,4 +26,4 @@ This file contains sample data in JSON format that is used by the extract.py scr
 - Execute `vector_db.sh` to convert text files into a vector database for use with the chatbot UI.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MPL-2.0 License - see the LICENSE file for details.
