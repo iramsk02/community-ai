@@ -1,0 +1,9 @@
+[2025-03-13 12:13:34]
+*REGISTER: 2025 Mifos Summer Intern AMA (Ask Me Anything) Session (GSOC and {{NAME}}) - Thursday March 20 at 1500 UTC*
+
+Each year to help aspiring interns learn more about {{ORGANIZATION}}, get clarifications about our projects, and ask any questions to improve their applications, we host an Ask Me Anything session with our mentors. Any applicant for either GSOC or {{ORGANIZATION}} should attend and be prepared with any questions you might have.
+
+Register via Zoom at <{{URL}}>
+
+[2025-03-08 23:53:22]
+Since this is my first time participating in GSoC, I wish to get some advice or guidance from mentors. If there is anything I should do or could help with before drafting the project proposal, please let me know. Thank you very much! <!{{NAME}}2025-03-07 16:07:17] 
