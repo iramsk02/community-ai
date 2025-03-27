@@ -1,0 +1,11 @@
+[2025-03-13 12:13:34] User: U5JP6FGS0
+*REGISTER: 2025 Mifos Summer Intern AMA (Ask Me Anything) Session (GSOC and C4GT) - Thursday March 20 at 1500 UTC*
+
+Each year to help aspiring interns learn more about Mifos, get clarifications about our projects, and ask any questions to improve their applications, we host an Ask Me Anything session with our mentors. Any applicant for either GSOC or C4GT should attend and be prepared with any questions you might have.
+
+Register via Zoom at <https://us02web.zoom.us/webinar/register/4617418479058/WN_zBH_P3--TzKaGFKWFES3zw>
+
+[2025-03-08 23:53:22] User: U08GXF0A9JQ
+Hello everyone! My name is {Name }I finished my bachelor degree in Computer Science (major) and Economics (minor) at {Name} last year. Currently, I am pursuing a master degree in Computer and Information Science at the University of Pennsylvania. I am interested in contributing to Mifos’ Online Banking App 5.0 - Customer Loan Management Portal project for GSoC 2025.
+My primary programming language is Java. I am also experienced with SQL, Git, and front-end technologies (HTML, CSS, JavaScript, React, Angular, etc.) from my previous internships and projects. I am highly interested in Fintech and software engineering. One of my internships was to work as a software developer for China Merchants Bank. I am eager to leverage these skills and experience to contribute meaningfully to Mifos.
+Since this is my first time participating in GSoC, I wish to get some advice or guidance from mentors. If there is anything I should do or could help with before drafting the project proposal, please let me know. Thank you very much! <!subteam^S072CEBD8N7>
