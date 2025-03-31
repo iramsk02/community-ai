@@ -1,0 +1,1061 @@
+404.html
+------
+<!DOCTYPE html>
+<script src="/link-fixup.js" defer></script>
+<title>404 Not Found</title>
+<style>
+ body.loading div.failed, body.failed div.loading, div.failed { display: none; }
+ body.loading div.loading, body.failed div.failed, div.loading { display: block; }
+</style>
+<body onload="document.body.className = 'failed'">
+<script>document.body.className = 'loading'</script>
+<div class="loading">
+ <p>Loading...</p>
+</div>
+<div class="failed">
+ <h1>Not Found</h1>
+ <p>The page you are looking for is no longer available at this URL.</p>
+ <p>Links to the multipage version of the specification are
+ unfortunately likely to break over time. You might be able to find
+ what you want from <a href="/multipage/">the contents page</a>.</p>
+ <p>If you have found a broken link on the WHATWG site itself, please
+ <a href="https://github.com/whatwg/html/issues/new">file an issue</a>.
+ If you found a broken link from another site pointing to the WHATWG site,
+ please let that site know of the problem instead. Thanks!</p>
+</div>
+
+------
+
+book.toml
+------
+# Sync any changes to this *other than where explicitly specified* with the copy
+# in `nostarch/book.toml`!
+
+[book]
+title = "The Rust Programming Language"
+authors = ["Steve Klabnik", "Carol Nichols", "Chris Krycho", "Contributions from the Rust Community"]
+
+[output.html]
+additional-css = ["ferris.css", "theme/2018-edition.css", "theme/semantic-notes.css", "theme/listing.css"]
+additional-js = ["ferris.js"]
+git-repository-url = "https://github.com/rust-lang/book"
+
+[output.html.redirect]
+"ch17-00-oop.html" = "ch18-00-oop.html"
+"ch17-01-what-is-oo.html" = "ch18-01-what-is-oo.html"
+"ch17-02-trait-objects.html" = "ch18-02-trait-objects.html"
+"ch17-03-oo-design-patterns.html" = "ch18-03-oo-design-patterns.html"
+"ch18-00-patterns.html" = "ch19-00-patterns.html"
+"ch18-01-all-the-places-for-patterns.html" = "ch19-01-all-the-places-for-patterns.html"
+"ch18-02-refutability.html" = "ch19-02-refutability.html"
+"ch18-03-pattern-syntax.html" = "ch19-03-pattern-syntax.html"
+"ch19-00-advanced-features.html" = "ch20-00-advanced-features.html"
+"ch19-01-unsafe-rust.html" = "ch20-01-unsafe-rust.html"
+"ch19-03-advanced-traits.html" = "ch20-03-advanced-traits.html"
+"ch19-04-advanced-types.html" = "ch20-04-advanced-types.html"
+"ch19-05-advanced-functions-and-closures.html" = "ch20-05-advanced-functions-and-closures.html"
+"ch19-06-macros.html" = "ch20-06-macros.html"
+"ch20-00-final-project-a-web-server.html" = "ch21-00-final-project-a-web-server.html"
+"ch20-01-single-threaded.html" = "ch21-01-single-threaded.html"
+"ch20-02-multithreaded.html" = "ch21-02-multithreaded.html"
+"ch20-03-graceful-shutdown-and-cleanup.html" = "ch21-03-graceful-shutdown-and-cleanup.html"
+
+# Do not sync this preprocessor; it is for the HTML renderer only.
+[preprocessor.trpl-note]
+
+[preprocessor.trpl-listing]
+output-mode = "default"
+
+[rust]
+edition = "2021"
+
+------
+
+calculator.py
+------
+import math
+
+class Calculator:
+    def __init__(self):
+        self.memory = 0
+    
+    def add(self, x, y):
+        """Addition operation"""
+        return x + y
+    
+    def subtract(self, x, y):
+        """Subtraction operation"""
+        return x - y
+    
+    def multiply(self, x, y):
+        """Multiplication operation"""
+        return x * y
+    
+    def divide(self, x, y):
+        """Division operation with error handling"""
+        if y == 0:
+            raise ValueError("Cannot divide by zero")
+        return x / y
+    
+    def power(self, x, y):
+        """Exponentiation operation"""
+        return x ** y
+    
+    def square_root(self, x):
+        """Square root operation"""
+        if x < 0:
+            raise ValueError("Cannot calculate square root of negative number")
+        return math.sqrt(x)
+    
+    def factorial(self, x):
+        """Factorial operation"""
+        return math.factorial(int(x))
+    
+    def sine(self, x):
+        """Sine function (input in degrees)"""
+        return math.sin(math.radians(x))
+    
+    def cosine(self, x):
+        """Cosine function (input in degrees)"""
+        return math.cos(math.radians(x))
+    
+    def store_memory(self, value):
+        """Store value in memory"""
+        self.memory = value
+        return f"Stored {value} in memory"
+    
+    def recall_memory(self):
+        """Recall value from memory"""
+        return self.memory
+    
+    def clear_memory(self):
+        """Clear memory"""
+        self.memory = 0
+        return "Memory cleared"
+
+def main():
+    calculator = Calculator()
+    
+    while True:
+        print("\n--- Advanced Calculator ---")
+        print("Operations:")
+        print("1. Addition (+)")
+        print("2. Subtraction (-)")
+        print("3. Multiplication (*)")
+        print("4. Division (/)")
+        print("5. Power (^)")
+        print("6. Square Root")
+        print("7. Factorial")
+        print("8. Sine")
+        print("9. Cosine")
+        print("10. Memory Store")
+        print("11. Memory Recall")
+        print("12. Clear Memory")
+        print("0. Exit")
+        
+        choice = input("Enter operation number: ")
+        
+        try:
+            if choice == '0':
+                print("Thank you for using the calculator!")
+                break
+            
+            if choice in ['1', '2', '3', '4', '5']:
+                x = float(input("Enter first number: "))
+                y = float(input("Enter second number: "))
+                
+                if choice == '1':
+                    result = calculator.add(x, y)
+                elif choice == '2':
+                    result = calculator.subtract(x, y)
+                elif choice == '3':
+                    result = calculator.multiply(x, y)
+                elif choice == '4':
+                    result = calculator.divide(x, y)
+                elif choice == '5':
+                    result = calculator.power(x, y)
+                
+                print(f"Result: {result}")
+            
+            elif choice in ['6', '7', '8', '9']:
+                x = float(input("Enter number: "))
+                
+                if choice == '6':
+                    result = calculator.square_root(x)
+                elif choice == '7':
+                    result = calculator.factorial(x)
+                elif choice == '8':
+                    result = calculator.sine(x)
+                elif choice == '9':
+                    result = calculator.cosine(x)
+                
+                print(f"Result: {result}")
+            
+            elif choice == '10':
+                value = float(input("Enter value to store: "))
+                print(calculator.store_memory(value))
+            
+            elif choice == '11':
+                print(f"Stored Value: {calculator.recall_memory()}")
+            
+            elif choice == '12':
+                print(calculator.clear_memory())
+            
+            else:
+                print("Invalid operation. Please try again.")
+        
+        except ValueError as e:
+            print(f"Error: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+
+if __name__ == "__main__":
+    main()
+
+------
+
+doc-to-md.sh
+------
+#!/bin/bash
+
+set -eu
+
+# Get all the docx files in the tmp dir.
+find tmp -name '*.docx' -print0 | \
+# Extract just the filename so we can reuse it easily.
+xargs -0 basename -s .docx | \
+while IFS= read -r filename; do
+    # Truncate the `nostarch` dir file and put the "no editing" warning back.
+    # Tell shellcheck to ignore this because I want the `/src/` printed
+    # literally, not expanded.
+    # shellcheck disable=SC2016
+    echo '<!-- DO NOT EDIT THIS FILE.
+
+This file is periodically generated from the content in the `/src/`
+directory, so all fixes need to be made in `/src/`.
+-->' > "nostarch/$filename.md"
+    # Make a directory to put the XML in.
+    mkdir -p "tmp/$filename"
+    # Unzip the docx to get at the XML.
+    unzip -o "tmp/$filename.docx" -d "tmp/$filename"
+    # Convert to markdown with XSL.
+    xsltproc tools/docx-to-md.xsl "tmp/$filename/word/document.xml" | \
+    # Hard wrap at 80 chars at word boundaries.
+    fold -w 80 -s | \
+    # Remove trailing whitespace and append to the file in the `nostarch` dir for comparison.
+    sed -e "s/ *$//" >> "nostarch/$filename.md"
+done
+
+------
+
+ferris.css
+------
+body.light .does_not_compile,
+body.light .panics,
+body.light .not_desired_behavior,
+body.rust .does_not_compile,
+body.rust .panics,
+body.rust .not_desired_behavior {
+  background: #fff1f1;
+}
+
+body.coal .does_not_compile,
+body.coal .panics,
+body.coal .not_desired_behavior,
+body.navy .does_not_compile,
+body.navy .panics,
+body.navy .not_desired_behavior,
+body.ayu .does_not_compile,
+body.ayu .panics,
+body.ayu .not_desired_behavior {
+  background: #501f21;
+}
+
+.ferris-container {
+  position: absolute;
+  z-index: 99;
+  right: 5px;
+  top: 30px;
+}
+
+.ferris {
+  vertical-align: top;
+  margin-left: 0.2em;
+  height: auto;
+}
+
+.ferris-large {
+  width: 4.5em;
+}
+
+.ferris-small {
+  width: 2.3em;
+}
+
+.ferris-explain {
+  width: 100px;
+}
+
+------
+
+ferris.js
+------
+// @ts-check
+
+/**
+ * @typedef {{ attr: string, title: string }} FerrisType
+ */
+
+/** @type {Array<FerrisType>} */
+const FERRIS_TYPES = [
+  {
+    attr: 'does_not_compile',
+    title: 'This code does not compile!'
+  },
+  {
+    attr: 'panics',
+    title: 'This code panics!'
+  },
+  {
+    attr: 'not_desired_behavior',
+    title: 'This code does not produce the desired behavior.'
+  }
+]
+
+document.addEventListener('DOMContentLoaded', () => {
+  for (let ferrisType of FERRIS_TYPES) {
+    attachFerrises(ferrisType)
+  }
+})
+
+/**
+ * @param {FerrisType} type
+ */
+function attachFerrises(type) {
+  let elements = document.getElementsByClassName(type.attr)
+
+  for (let codeBlock of elements) {
+    // Skip SVG etc.: in principle, these should never be attached to those, but
+    // this means if someone happens to have a browser extension which *is*
+    // attaching them, it will not break the code.
+    if (!(codeBlock instanceof HTMLElement)) {
+      continue
+    }
+
+    let lines = codeBlock.innerText.replace(/\n$/, '').split(/\n/).length
+
+    /** @type {'small' | 'large'} */
+    let size = lines < 4 ? 'small' : 'large'
+
+    let container = prepareFerrisContainer(codeBlock, size == 'small')
+    if (!container) {
+      continue
+    }
+
+    container.appendChild(createFerris(type, size))
+  }
+}
+
+/**
+ * @param {HTMLElement} element - Code block element to attach a Ferris to.
+ * @param {boolean} useButtons - Whether to attach to existing buttons.
+ * @returns {Element | null} - The container element to use.
+ */
+function prepareFerrisContainer(element, useButtons) {
+  let foundButtons = element.parentElement?.querySelector('.buttons')
+  if (useButtons && foundButtons) {
+    return foundButtons
+  }
+
+  let div = document.createElement('div')
+  div.classList.add('ferris-container')
+
+  if (!element.parentElement) {
+    console.error(`Could not install Ferris on ${element}, which is missing a parent`);
+    return null;
+  }
+
+  element.parentElement.insertBefore(div, element)
+
+  return div
+}
+
+/**
+ * @param {FerrisType} type
+ * @param {'small' | 'large'} size
+ * @returns {HTMLAnchorElement} - The generated anchor element.
+ */
+function createFerris(type, size) {
+  let a = document.createElement('a')
+  a.setAttribute('href', 'ch00-00-introduction.html#ferris')
+  a.setAttribute('target', '_blank')
+
+  let img = document.createElement('img')
+  img.setAttribute('src', 'img/ferris/' + type.attr + '.svg')
+  img.setAttribute('title', type.title)
+  img.classList.add('ferris')
+  img.classList.add('ferris-' + size)
+
+  a.appendChild(img)
+
+  return a
+}
+
+------
+
+gui.py
+------
+import tkinter as tk
+import math
+
+class GUICalculator:
+    def __init__(self, master):
+        self.master = master
+        master.title("Advanced Calculator")
+        
+        # Display
+        self.display = tk.Entry(master, width=30, justify='right', font=('Arial', 14))
+        self.display.grid(row=0, column=0, columnspan=4, padx=5, pady=5)
+        
+        # Buttons
+        buttons = [
+            '7', '8', '9', '/',
+            '4', '5', '6', '*',
+            '1', '2', '3', '-',
+            '0', '.', '=', '+',
+            'C', '√', '^', 'sin',
+            'cos', '!', '(', ')'
+        ]
+        
+        # Create buttons
+        row = 1
+        col = 0
+        for button in buttons:
+            cmd = lambda x=button: self.click(x)
+            tk.Button(master, text=button, command=cmd, width=7, height=2).grid(row=row, column=col, padx=3, pady=3)
+            col += 1
+            if col > 3:
+                col = 0
+                row += 1
+    
+    def click(self, key):
+        if key == '=':
+            # Safely evaluate the expression
+            try:
+                result = eval(self.display.get())
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, str(result))
+            except:
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, "Error")
+        
+        elif key == 'C':
+            self.display.delete(0, tk.END)
+        
+        elif key == '√':
+            try:
+                result = math.sqrt(float(self.display.get()))
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, str(result))
+            except:
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, "Error")
+        
+        elif key == '^':
+            self.display.insert(tk.END, '**')
+        
+        elif key == 'sin':
+            try:
+                result = math.sin(math.radians(float(self.display.get())))
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, str(result))
+            except:
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, "Error")
+        
+        elif key == 'cos':
+            try:
+                result = math.cos(math.radians(float(self.display.get())))
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, str(result))
+            except:
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, "Error")
+        
+        elif key == '!':
+            try:
+                result = math.factorial(int(self.display.get()))
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, str(result))
+            except:
+                self.display.delete(0, tk.END)
+                self.display.insert(tk.END, "Error")
+        
+        else:
+            self.display.insert(tk.END, key)
+
+def main():
+    root = tk.Tk()
+    calculator = GUICalculator(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
+
+------
+
+main.rs
+------
+use std::io;
+
+use clap::{self, Parser, Subcommand};
+use mdbook::preprocess::{CmdPreprocessor, Preprocessor};
+
+use mdbook_trpl_listing::TrplListing;
+
+fn main() -> Result<(), String> {
+    let cli = Cli::parse();
+    if let Some(Command::Supports { renderer }) = cli.command {
+        return if TrplListing.supports_renderer(&renderer) {
+            Ok(())
+        } else {
+            Err(format!("Renderer '{renderer}' is unsupported"))
+        };
+    }
+
+    let (ctx, book) = CmdPreprocessor::parse_input(io::stdin()).map_err(|e| format!("{e}"))?;
+    let processed = TrplListing.run(&ctx, book).map_err(|e| format!("{e}"))?;
+    serde_json::to_writer(io::stdout(), &processed).map_err(|e| format!("{e}"))
+}
+
+/// A simple preprocessor for semantic markup for code listings in _The Rust
+/// Programming Language_.
+#[derive(Parser, Debug)]
+struct Cli {
+    #[command(subcommand)]
+    command: Option<Command>,
+}
+
+#[derive(Subcommand, Debug)]
+enum Command {
+    /// Is the renderer supported?
+    ///
+    /// All renderers are supported! This is the contract for mdBook.
+    Supports { renderer: String },
+}
+
+------
+
+page.tsx
+------
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Scroll, ChevronDown, ChevronUp } from "lucide-react";
+import PresidentialDebateDemo from "@/components/PresidentialDebateDemo";
+import { Button } from "@/components/ui/button";
+import { sendGAEvent } from "@next/third-parties/google";
+
+export default function Home() {
+  const [showDemo, setShowDemo] = useState(true);
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-8">
+      <div className="max-w-4xl w-full text-center">
+        <div className="flex items-center justify-center mb-2">
+          <Scroll
+            className="w-12 h-12 sm:w-16 sm:h-16 mr-2 text-primary"
+            strokeWidth={1.5}
+          />
+          <span className="logo-text text-2xl sm:text-3xl">docetl</span>
+        </div>
+        <p className="text-lg sm:text-xl mb-4 sm:mb-6">
+          Powering complex document processing pipelines
+        </p>
+
+        <div className="max-w-lg mx-auto">
+          <p className="text-sm sm:text-md mb-1 text-gray-600">
+            <em>New NotebookLM Podcast!</em>{" "}
+            <a
+              href="https://notebooklm.google.com/notebook/ef73248b-5a43-49cd-9976-432d20f9fa4f/audio?pli=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 underline"
+            >
+              Sept 28, 2024
+            </a>
+            . Thanks to Shabie from our Discord community!
+          </p>
+          <p className="text-sm sm:text-md mb-6 text-gray-600">
+            <em>New blog post!</em>{" "}
+            <a
+              href="https://data-people-group.github.io/blogs/2024/09/24/docetl/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 underline"
+            >
+              September 24, 2024
+            </a>
+          </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 mb-6 sm:mb-8">
+          <Button
+            onClick={() => {
+              setShowDemo(!showDemo);
+              sendGAEvent("event", "buttonClicked", { value: "demo" });
+            }}
+            className="btn btn-primary flex items-center"
+          >
+            Demo
+            {showDemo ? (
+              <ChevronUp className="ml-2 h-4 w-4" />
+            ) : (
+              <ChevronDown className="ml-2 h-4 w-4" />
+            )}
+          </Button>
+
+          {/* <Button asChild className="btn btn-secondary">
+            <Link href="/blog">Blog</Link>
+          </Button> */}
+          <Button
+            asChild
+            className="btn btn-secondary"
+            onClick={() =>
+              sendGAEvent("event", "buttonClicked", { value: "discord" })
+            }
+          >
+            <a
+              href="https://discord.gg/fHp7B2X3xx"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Discord
+            </a>
+          </Button>
+          <Button
+            asChild
+            className="btn btn-secondary"
+            onClick={() =>
+              sendGAEvent("event", "buttonClicked", { value: "github" })
+            }
+          >
+            <a
+              href="https://github.com/ucbepic/docetl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          </Button>
+          <Button
+            asChild
+            className="btn btn-secondary"
+            onClick={() =>
+              sendGAEvent("event", "buttonClicked", { value: "docs" })
+            }
+          >
+            <Link href="https://ucbepic.github.io/docetl/" target="_blank">
+              Docs
+            </Link>
+          </Button>
+          <Button
+            className="btn btn-secondary"
+            onClick={() =>
+              sendGAEvent("event", "buttonClicked", { value: "paper" })
+            }
+          >
+            <Link href="https://arxiv.org/abs/2410.12189" target="_blank">
+              Paper
+            </Link>
+          </Button>
+        </div>
+
+        <div className={`demo-wrapper ${showDemo ? "show" : ""}`}>
+          <div className="demo-content">
+            <div className="demo-inner">
+              <PresidentialDebateDemo />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 sm:mt-8 flex justify-center items-center space-x-4">
+          <a
+            href="https://eecs.berkeley.edu"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/berkeley.png"
+              alt="UC Berkeley Logo"
+              width={40}
+              height={40}
+              className="sm:w-[50px] sm:h-[50px]"
+            />
+          </a>
+          <a
+            href="https://epic.berkeley.edu"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/epiclogo.png"
+              alt="EPIC Lab Logo"
+              width={120}
+              height={40}
+              className="sm:w-[150px] sm:h-[50px]"
+            />
+          </a>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+------
+
+sample.cpp
+------
+#include <iostream>
+using namespace std;
+
+int main() {
+    int number;
+    
+    // Input
+    cout << "Enter a number: ";
+    cin >> number;
+
+    // Condition check
+    if (number % 2 == 0) {
+        cout << "The number " << number << " is even." << endl;
+    } else {
+        cout << "The number " << number << " is odd." << endl;
+    }
+
+    // Loop
+    cout << "Counting from 1 to " << number << ":" << endl;
+    for (int i = 1; i <= number; i++) {
+        cout << i << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+------
+
+style-guide.md
+------
+# Style Guide
+
+## Prose
+
+* Prefer title case for chapter/section headings, ex: `## Generating a Secret
+  Number` rather than `## Generating a secret number`.
+* Prefer italics over single quotes when calling out a term, ex: `is an
+  *associated function* of` rather than `is an ‘associated function’ of`.
+* When talking about a method in prose, DO NOT include the parentheses, ex:
+  `read_line` rather than `read_line()`.
+* Hard wrap at 80 chars
+* Prefer not mixing code and not-code in one word, ex: ``Remember when we wrote
+  `use std::io`?`` rather than ``Remember when we `use`d `std::io`?``
+
+## Code
+
+* Add the file name before markdown blocks to make it clear which file we're
+  talking about, when applicable.
+* When making changes to code, make it clear which parts of the code changed
+  and which stayed the same... not sure how to do this yet
+* Split up long lines as appropriate to keep them under 80 chars if possible
+* Use `bash` syntax highlighting for command line output code blocks
+
+## Links
+
+Once all the scripts are done:
+
+* If a link shouldn't be printed, mark it to be ignored
+  * This includes all "Chapter XX" intra-book links, which *should* be links
+    for the HTML version
+* Make intra-book links and stdlib API doc links relative so they work whether
+  the book is read offline or on docs.rust-lang.org
+* Use markdown links and keep in mind that they will be changed into `text at
+  *url*` in print, so word them in a way that it reads well in that format
+
+------
+
+test.c
+------
+#include <stdio.h>
+
+int main() {
+    int number;
+
+    // Input
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    // Condition check
+    if (number % 2 == 0) {
+        printf("The number %d is even.\n", number);
+    } else {
+        printf("The number %d is odd.\n", number);
+    }
+
+    // Loop
+    printf("Counting from 1 to %d:\n", number);
+    for (int i = 1; i <= number; i++) {
+        printf("%d ", i);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+------
+
+test.go
+------
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
+
+// Router function to handle different routes
+func setupRouter() *http.ServeMux {
+	// Create a new ServeMux (multiplexer)
+	mux := http.NewServeMux()
+
+	// Home route handler
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
+			return
+		}
+		fmt.Fprintln(w, "Welcome to the Home Page!")
+	})
+
+	// Users route handler
+	mux.HandleFunc("/users", func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodGet:
+			fmt.Fprintln(w, "List all users")
+		case http.MethodPost:
+			fmt.Fprintln(w, "Create a new user")
+		default:
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
+
+	// User details route handler
+	mux.HandleFunc("/users/", func(w http.ResponseWriter, r *http.Request) {
+		// Extract user ID from the URL
+		userID := r.URL.Path[len("/users/"):]
+		
+		switch r.Method {
+		case http.MethodGet:
+			fmt.Fprintf(w, "Get details for user %s", userID)
+		case http.MethodPut:
+			fmt.Fprintf(w, "Update user %s", userID)
+		case http.MethodDelete:
+			fmt.Fprintf(w, "Delete user %s", userID)
+		default:
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
+
+	return mux
+}
+
+func main() {
+	// Setup the router
+	router := setupRouter()
+
+	// Start the server
+	port := ":8080"
+	fmt.Printf("Server starting on port %s\n", port)
+	log.Fatal(http.ListenAndServe(port, router))
+}
+------
+
+test.sh
+------
+#!/bin/bash
+
+# File Management and Nano Editing Script
+
+# Function to display menu
+show_menu() {
+    echo "File Management and Editing Menu"
+    echo "--------------------------------"
+    echo "1. Create a new file"
+    echo "2. Open file in nano"
+    echo "3. List files in current directory"
+    echo "4. Delete a file"
+    echo "5. Exit"
+}
+
+# Function to create a file
+create_file() {
+    read -p "Enter the filename you want to create: " filename
+    
+    # Check if filename is empty
+    if [ -z "$filename" ]; then
+        echo "Filename cannot be empty!"
+        return
+    }
+    
+    # Use touch to create the file
+    touch "$filename"
+    
+    if [ $? -eq 0 ]; then
+        echo "File '$filename' created successfully!"
+    else
+        echo "Failed to create file '$filename'"
+    fi
+}
+
+# Function to open file in nano
+open_file() {
+    read -p "Enter the filename you want to open: " filename
+    
+    # Check if filename is empty
+    if [ -z "$filename" ]; then
+        echo "Filename cannot be empty!"
+        return
+    }
+    
+    # Check if file exists
+    if [ ! -f "$filename" ]; then
+        echo "File '$filename' does not exist!"
+        return
+    }
+    
+    # Open file in nano
+    nano "$filename"
+}
+
+# Function to list files
+list_files() {
+    echo "Files in the current directory:"
+    ls -l
+}
+
+# Function to delete a file
+delete_file() {
+    read -p "Enter the filename you want to delete: " filename
+    
+    # Check if filename is empty
+    if [ -z "$filename" ]; then
+        echo "Filename cannot be empty!"
+        return
+    }
+    
+    # Check if file exists
+    if [ ! -f "$filename" ]; then
+        echo "File '$filename' does not exist!"
+        return
+    }
+    
+    # Confirm deletion
+    read -p "Are you sure you want to delete '$filename'? (y/n): " confirm
+    
+    if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]; then
+        rm "$filename"
+        if [ $? -eq 0 ]; then
+            echo "File '$filename' deleted successfully!"
+        else
+            echo "Failed to delete file '$filename'"
+        fi
+    else
+        echo "Deletion cancelled."
+    fi
+}
+
+# Main script loop
+while true; do
+    show_menu
+    
+    read -p "Enter your choice (1-5): " choice
+    
+    case $choice in
+        1) create_file ;;
+        2) open_file ;;
+        3) list_files ;;
+        4) delete_file ;;
+        5) 
+            echo "Exiting script. Goodbye!"
+            exit 0
+            ;;
+        *) 
+            echo "Invalid option. Please enter a number between 1 and 5."
+            ;;
+    esac
+    
+    # Add a pause to see the result
+    read -n 1 -s -r -p "Press any key to continue..."
+    clear
+done
+
+------
+
+test_folder/start.py
+------
+import os
+import random
+import time
+
+# Terminal size
+rows, cols = os.get_terminal_size()
+
+def print_firework(x, y, char, color):
+    """Print a single firework explosion at a given position."""
+    for _ in range(random.randint(5, 10)):
+        dx = random.randint(-3, 3)
+        dy = random.randint(-3, 3)
+        new_x, new_y = x + dx, y + dy
+        if 0 < new_x < cols and 0 < new_y < rows:
+            print(f"\033[{new_y};{new_x}H{color}{char}\033[0m", end="")
+
+def launch_firework():
+    """Simulate a firework launch and explosion."""
+    x = random.randint(10, cols - 10)
+    height = random.randint(5, rows - 5)
+
+    # Firework launch
+    for y in range(rows, height, -1):
+        print(f"\033[{y};{x}H|", end="", flush=True)
+        time.sleep(0.05)
+        print(f"\033[{y};{x}H ", end="", flush=True)
+
+    # Firework explosion
+    explosion_chars = ['*', 'o', '.', '+']
+    explosion_colors = ['\033[91m', '\033[93m', '\033[94m', '\033[95m']
+    for _ in range(10):
+        char = random.choice(explosion_chars)
+        color = random.choice(explosion_colors)
+        print_firework(x, height, char, color)
+        time.sleep(0.1)
+
+    # Clear the explosion
+    print("\033[2J", end="", flush=True)
+
+def main():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("\033[?25l", end="")  # Hide cursor
+    try:
+        while True:
+            launch_firework()
+    except KeyboardInterrupt:
+        print("\033[?25h", end="")  # Show cursor
+        print("\nGoodbye! 🎆")
+
+if __name__ == "__main__":
+    main()
+
+------
