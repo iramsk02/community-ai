@@ -12,6 +12,9 @@ This Python script removes personal identifiable information (PII) such as names
 ### demo_bot.ipynb
 This Jupyter Notebook serves as a Retrieval-Augmented Generation (RAG) agent that interacts with the gsoc_channel from the Mifos Slack community. It requires OpenAI and Pinecone API keys for functionality.
 
+### repo_parser.py
+This script converts the content of a github repo into a text file. This can be used with a vector db to create a knowledge base.
+
 ### vector_db.sh
 This script, based on WasmEdge, converts text files into a vector database. It can be used with a sample chatbot UI utilizing quantized open-source models.
 
