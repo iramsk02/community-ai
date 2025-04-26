@@ -109,6 +109,29 @@ GEMINI_API_KEY=your-gemini-api-key
 
 ---
 
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/openMF/community-ai.git
+   ```
+
+2. Install required dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+   
+3. Set up your OpenAI API key:
+   Create a `.env` file in the root directory and add:
+   ```
+   OPENAI_API_KEY= "your_api_key_here"
+   ```
+   
+4. Navigate to Web-App directory:
+   ```
+   cd Web-App
+   ```
+   
+
 ## Usage
 
 You can run the Mifos Chatbot in two ways:
