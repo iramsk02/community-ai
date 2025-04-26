@@ -1,45 +1,114 @@
+# ![3473607](https://github.com/user-attachments/assets/3facb286-61f0-45fb-b87f-71fd184a0bfb)
+
+# 🤖 Mifos Community AI Chatbot
+
+Welcome to the Mifos Community AI project! This innovative tool is designed to improve support and accessibility for the global Mifos & Fineract community using the power of Generative AI.
+
+##  Overview
+
+As Mifos and Fineract applications grow in complexity and adoption, effective support becomes crucial. This chatbot offers a smarter way to assist implementers, developers, and new users—providing instant, intelligent responses to questions using AI.
+
+## Why It Matters ?
+
+- 🌐Community is growing rapidly → more queries, higher support demand.
+- Current help via Slack or docs is inconsistent and delayed.
+- Documentation is scattered → tough for new users to navigate.
+- Response time depends on who’s available → not reliable.
+- 🤖 This bot = 24/7 support + faster onboarding + reduced load on community mentors.
+
+## 🎯 Project Goals
+
+- Build an intelligent chatbot to answer queries about Mifos/Fineract.
+- Integrate GPT models to improve understanding and answer generation.
+- Guide users to relevant documentation and code snippets.
+- Pre-train using real Slack Q&A and improve iteratively.
+- Make support fast, consistent, and always available.
+
+---
+
+## Table of Contents
+
+- [Project Overview](#mifos-community-ai-chatbot)
+- [Goals & Why It Matters](#why-it-matters)
+- [Features](#features)
+- [Tech Stack](#technology-stack)
+- [Getting Started](#installation)
+- [How to Use](#usage)
+- [Project Structure](#project-structure)
+- [How It Works](#how-it-works)
+- [Translation Tool](#translation-helper-tool)
+- [Contributing](#contributing)
+- [Resources](#resources)
 
 
-# Mifos Chatbot
+  ---
 
-## Project Overview
+## 💡 Features
 
-The Mifos Chatbot is a cutting-edge project exploring the use of generative AI to enhance community support mechanisms for implementers and adopters of Mifos and Fineract. As the Mifos community has grown, so has the complexity of its applications. This chatbot aims to provide swift, accurate support to users, especially those new to the projects.
+> The Mifos Community AI Chatbot brings powerful capabilities to simplify and support your journey with Mifos and Fineract:
 
-### Background
+- **🗣️ Natural Language Understanding:**  
+  Understands and interprets user queries just like a human would.
 
-- The Mifos community has expanded significantly in recent years.
-- Mifos applications are highly complex, requiring specialized support for implementation and development.
-- Current support is primarily through Slack general channels and dispersed documentation.
-- Response times and quality can vary based on who reads and responds to queries.
-- There is no dedicated resource for consistent monitoring and response, leading to potential delays.
+- **🤖 Smart Responses with OpenAI GPT:**  
+  Leverages GPT models to generate accurate and helpful replies.
 
-### Project Objectives
+- **📚 Instant Access to Documentation and Code:**  
+  Retrieves relevant snippets from the Mifos/Fineract codebase using vector search.
 
-1. Develop an AI-powered chatbot capable of understanding and responding to user queries about Mifos and Fineract products.
-2. Create a learning algorithm that improves the bot's responses over time.
-3. Provide users with relevant answers or direct them to appropriate documentation.
-4. Cover the range of Mifos/Fineract products currently supported in the Slack channel.
-5. Implement pre-training of algorithms based on historical questions and responses.
-6. Streamline the support process for implementers and adopters of Mifos and Fineract.
+- **🗂️ Supports Multiple File Types:**  
+  Easily searches across TypeScript, HTML, Markdown, Kotlin, JavaScript files and more.
 
-## Features
+- **Simple & Friendly Interface:**  
+  Built with Gradio for a clean and smooth user experience.
 
-- Natural language processing to understand user queries
-- Integration with OpenAI's GPT models for generating responses
-- Vector embeddings for efficient information retrieval from the codebase
-- Support for multiple file types including TypeScript, HTML, Markdown, Kotlin and JavaScript
-- User-friendly interface built with Gradio
+---
 
 ## Technology Stack
 
-- Python 3.8+
-- LangChain for NLP tasks
-- OpenAI GPT models
-- ChromaDB for vector storage
-- Gradio for the user interface
+> The chatbot is built with a modern, scalable stack to ensure a seamless AI experience:
 
-## Installation
+- **Python 3.8+** — The core programming language powering the backend.
+- **LangChain** — For handling natural language processing tasks and chaining AI models.
+- **OpenAI GPT / Gemini AI** — To generate intelligent, human-like responses.
+- **ChromaDB** — For storing and retrieving vector embeddings efficiently.
+- **Gradio** — For building an intuitive and interactive user interface.
+
+---
+
+## ⚙️ Installation
+
+To set up and run the Mifos Chatbot locally:
+
+### 1. Clone the Repository:
+
+```bash
+git clone https://github.com/openMF/community-ai.git
+cd Web-App
+```
+
+### 2. Install Dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Make sure you have **Python 3.8+** installed.
+
+### 3. Set up your API Key:
+
+Create a `.env` file in the project root with the following:
+
+```plaintext
+OPENAI_API_KEY=your_openai_api_key_here
+```
+**OR**
+```plaintext
+GEMINI_API_KEY=your-gemini-api-key
+```
+
+---
+
 
 1. Clone the repository:
    ```
@@ -62,49 +131,124 @@ The Mifos Chatbot is a cutting-edge project exploring the use of generative AI t
    cd Web-App
    ```
    
+
 ## Usage
 
-To run the chatbot locally, the ipynb file can be used. The Gradio interface will start, allowing you to interact with the chatbot. 
+You can run the Mifos Chatbot in two ways:
 
-1. Run the following command:
-   ```
+### ▶️ Run Locally (Jupyter Notebook)
+
+1. Launch Jupyter Notebook:
+
+   ```bash
    jupyter notebook
    ```
-2. Open the `web-app_bot.ipynb` file in the Jupyter Notebook interface.
-3. Run the cells to start the chatbot.
-4. Enter your query in the text box and click the "Submit" button to get a response.
-5. The chatbot will display the most relevant code snippets or documentation based on your query.
 
-OR
+2. Open the `web-app_bot.ipynb` file.
 
-To use the deployed version of the chatbot, visit the following link: 
+3. Run the notebook cells one by one.
 
-[Web-App](https://huggingface.co/spaces/MifosBot/Web-App)
-
-[Mifos-Mobile](https://huggingface.co/spaces/MifosBot/Mifos-Mobile)
-
-[Mobile-Wallet](https://huggingface.co/spaces/MifosBot/Mobile-Wallet)
-
-[Android-Client](https://huggingface.co/spaces/MifosBot/Android-Client)
-
-## Project Structure
-
-- `CodeCommentingScript.py`: Main script containing the logic for data pre-processing as explained in this [report](https://gist.github.com/shubhampal62/f7e5331dc58af05f19e959f847c9d3e5)
-- `web-app/`: Directory containing the Mifos Web-App files for analysis
-- `web_app_vector_storage_metadata/`: Directory for storing vector embeddings
-- `requirements.txt`: List of Python dependencies
-
-## How It Works
-
-1. The chatbot processes and indexes the Mifos codebase, creating vector embeddings for efficient retrieval.
-2. When a user asks a question, the system finds the most relevant code snippets or documentation.
-3. The chatbot then uses GPT models to generate a human-like response based on the retrieved information.
-4. Responses focus on file organization, key components, and project structure.
-
-## Contributing
-
-We welcome contributions to improve the Mifos Web-App Chatbot. Please feel free to submit issues, feature requests, or pull requests.
+4. Interact with the chatbot via the Gradio interface:
+   - Enter your query in the input box.
+   - Click **Submit** or press **Enter**.
+   - Get instant responses based on the Mifos/Fineract codebase and docs!
 
 ---
 
-For more information about Mifos and Fineract, visit [https://mifos.org/](https://mifos.org/) or [Mifos Slack Channel](https://mifos.slack.com/)
+### 🌐 Use Deployed Chatbots (No Setup Needed!)
+
+Instantly access the bots hosted on Hugging Face Spaces:
+
+- [Web App Bot](https://huggingface.co/spaces/MifosBot/Web-App)
+- [Mifos Mobile Bot](https://huggingface.co/spaces/MifosBot/Mifos-Mobile)
+- [Mobile Wallet Bot](https://huggingface.co/spaces/MifosBot/Mobile-Wallet)
+- [Android Client Bot](https://huggingface.co/spaces/MifosBot/Android-Client)
+
+No installation, just open the link and start asking questions! 🎯
+
+---
+
+## 🗂️ Project Structure
+
+Here's how the repository is organized:
+
+| Path/Folder                        | Description |
+| :---------------------------------- | :---------- |
+| `web-app/`                          | Contains Mifos Web App files analyzed by the chatbot. |
+| `web-app_bot.ipynb`                 | Jupyter Notebook to run the chatbot locally. |
+| `web_app_vector_storage_metadata/`  | Stores vector embeddings for fast information retrieval. |
+| `tools/translation-helper/`         | (New!) Gemini-powered Translation Helper Tool. |
+| `requirements.txt`                  | Python dependencies needed for running the chatbot and translation tool. |
+| `CodeCommentingScript.py`           | Script for pre-processing the codebase and generating vector embeddings. |
+
+---
+
+## How It Works
+
+- The chatbot processes and indexes the Mifos codebase, creating vector embeddings for efficient retrieval.
+- When a user asks a question, the system finds the most relevant code snippets or documentation.
+- The chatbot then uses GPT models to generate a human-like response based on the retrieved information.
+- Responses focus on file organization, key components, and project structure.
+  
+---
+
+## Translation Helper Tool (Gemini AI-based)
+
+This tool enables seamless translation of English text into 35+ languages using Google's Gemini 2.0 Flash model, helping bridge language barriers across the Mifos community.
+
+### Features
+
+- 🌍 Multilingual support for 35+ global languages  
+- 🎭 Formal/informal tone switch for contextual translations  
+- 🤖 Powered by Gemini 2.0 Flash via Google Generative AI  
+- 🔁 Trigger translation via Enter key or button  
+- 🎨 Built using Gradio for a minimal, user-friendly UI  
+
+### Getting Started
+
+1. Clone the repo and navigate to the helper tool:
+```bash
+cd tools/translation-helper
+```
+2. Create a `.env` file and add your Gemini API key:
+```plaintext
+GEMINI_API_KEY=your-gemini-api-key
+```
+3. Run the app:
+```bash
+   python app.py
+```
+5. In the UI:
+
+   - Enter English text.
+   - Choose your target language from the dropdown.
+   - Optionally check "Use Formal Tone".
+   - Hit Enter or click "Translate 🔁" to get results.
+
+### Why Use This Tool?
+
+- Makes translation fast and intuitive for users across the globe
+- Improves accessibility and inclusiveness in the Mifos ecosystem
+- Encourages multilingual contributions and collaboration
+
+### Note
+
+- The `.env` file is gitignored to ensure your API key remains private and secure.
+
+---
+
+## Contributing
+
+We welcome your ideas, bug reports, and contributions!
+- Fork the repo
+- Create a feature branch
+- Submit a Pull Request
+
+Let's build the future of community support together! 
+
+---
+
+## Links and Resources
+
+For more information about Mifos and Fineract, 
+visit [Mifos.org](https://mifos.org/) or join our [Mifos Slack Channel](https://mifos.slack.com/)
