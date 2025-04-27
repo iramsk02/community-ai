@@ -1,6 +1,18 @@
 # Mifos Community AI Chatbot
 
-As Mifos and Fineract grow, this chatbot provides quick, intelligent support for implementers, developers, and new users.
+As the Mifos community around its core products (Mifos X, Payment Hub EE, Mobile Applications and Mifos Gazelle) grows rapidly, this chatbot aims to provide a quick self-service support methods for implementors, developers and new users. It aims to simplify finding relevant content across the multiple sources through Generative AI tools.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Run Locally (Jupyter Notebook)](#run-locally-jupyter-notebook)
+  - [Use Deployed Chatbots (No-Setup Needed!)](#use-deployed-chatbots-no-setup-needed)
+- [Project Structure](#project-structure)
+- [How It Works](#how-it-works)
+- [Features](#features)
+- [Contributing](#contributing)
+- [Links and Resources](#links-and-resources)
 
 ## Installation
 
