@@ -1,0 +1,6 @@
+slack-bolt
+slack-sdk
+python-dotenv
+langchain
+langchain-openai
+chromadb
