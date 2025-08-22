@@ -65,7 +65,7 @@ DEFAULT_TARGET_LANGUAGE="Latvian"
 ### Run the translator (example)
 
 ```bash
-python translator.py
+python Script.py
 ```
 
 By default the script will attempt to translate the input file `en-US.json` and produce an output file named `test_translated_<language>.json` (for example `test_translated_Latvian.json`).
