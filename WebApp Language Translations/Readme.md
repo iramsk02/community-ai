@@ -173,7 +173,7 @@ Please include tests for new functionality.
 
 ---
 
-## Example `.env.example`
+## Example `.env example`
 
 ```
 GROQ_API_KEY=your_groq_api_key_here
