@@ -1,6 +1,6 @@
 # JSON Translator
 
-**A small CLI utility to translate JSON string leaves into another language using the Groq LLM API**
+**A small CLI utility to translate JSON string leaves into another language using LLM API**
 
 ---
 
