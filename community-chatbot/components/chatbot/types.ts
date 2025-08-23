@@ -15,6 +15,7 @@ export interface ChatHistoryItem {
   messages: MessageItem[];
   mode: string;
   active?: boolean;
+  userId: string;
 }
 
 export interface IntegrationMode {
