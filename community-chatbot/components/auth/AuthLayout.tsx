@@ -7,6 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import Image from "next/image"
 
 export function AuthLayout({
     title,
@@ -18,8 +19,13 @@ export function AuthLayout({
             <Card className="w-full max-w-md">
                 <CardHeader className="space-y-1 text-center">
                     <div className="flex justify-center items-center mb-4">
-                        <div className="bg-blue-600 p-3 rounded-full text-white">
-                            <span className="font-bold text-2xl">MC</span>
+                        <div className="p-3 rounded-full size-20">
+                            <Image
+                                src="/mifos.png"
+                                alt="logo"
+                                width={200}
+                                height={200}
+                            />
                         </div>
                     </div>
                     <CardTitle className="font-bold text-2xl">
