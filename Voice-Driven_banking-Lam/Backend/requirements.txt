@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-dotenv
+google-cloud-firestore
+firebase-admin
+transformers  # For Hugging Face models (Whisper, Voice ID, TTS)
+torch  # PyTorch, a dependency for many Hugging Face models
+torchaudio  # Audio utilities for PyTorch
+# sentencepiece  # Dependency for some HF models
+accelerate  # For optimizing HF model loading
+soundfile  # To handle audio files (used by torchaudio and some HF pipelines)
+numpy  # For numerical operations (e.g., cosine similarity)
+librosa
+google-generativeai
