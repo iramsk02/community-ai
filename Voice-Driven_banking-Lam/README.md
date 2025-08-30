@@ -57,10 +57,11 @@ The ultimate vision is to create a specialized, domain-specific AI agent for the
     pip install -r requirements.txt
     ```
 4.  **Configure Environment Variables**:
+    - For Detailed Setup, please read the Setup for environment pdf. 
     - Copy the `.env.example` file to a new file named `.env`.
     - Fill in the required credentials for your Google Cloud/Firestore project, Hugging Face account, and email service.
 
-5.  **Populate Firestore with Mock Data**:
+6.  **Populate Firestore with Mock Data**:
     - To get started with test data, run the data population script:
     ```bash
     python data_populate.py
