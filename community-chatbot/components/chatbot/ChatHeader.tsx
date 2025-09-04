@@ -1,37 +1,42 @@
-import { Avatar, AvatarFallback,AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { History, Plus, Loader2 } from "lucide-react"
-import type { IntegrationMode } from "./types"
-import { ThemeToggle } from "./ThemeToggle"
+import { Loader2, Menu, Plus } from 'lucide-react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { useSidebar } from '@/components/ui/sidebar';
+
+import { ThemeToggle } from './ThemeToggle';
+import type { IntegrationMode } from './types';
 
 interface ChatHeaderProps {
   currentMode: IntegrationMode | undefined
   isCreatingNewChat: boolean
-  setSidebarOpen: (open: boolean) => void
   createNewConversation: () => void
 }
 
 export function ChatHeader({
   currentMode,
   isCreatingNewChat,
-  setSidebarOpen,
   createNewConversation,
 }: ChatHeaderProps) {
+  const { toggleSidebar, setOpen, open } = useSidebar()
+
   return (
-    <div className="flex items-center gap-3 p-4 border-b bg-white dark:bg-gray-800 dark:border-gray-700">
-      <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setSidebarOpen(true)}>
-        <History className="h-5 w-5" />
-      </Button>
-      <Avatar>
-      <AvatarImage src="/mifos.png" alt="Mifos Logo" />
-      <AvatarFallback className="bg-blue-600 text-white">M</AvatarFallback>
+    <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-4 dark:border-gray-700 border-b h-20">
+      {/* Logo */}
+      <Avatar className="w-8 sm:w-10 h-8 sm:h-10">
+        <AvatarImage src="/mifos.png" alt="Mifos Logo" />
+        <AvatarFallback className="bg-blue-600 text-white">M</AvatarFallback>
       </Avatar>
+
+      {/* Title and status */}
       <div className="flex-1">
-        <h1 className="text-xl font-bold">Mifos Assistant</h1>
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-          <span className="text-sm text-green-600">Online</span>
+        <h1 className="block font-bold text-sm sm:text-xl truncate">
+          Mifos Assistant
+        </h1>
+        <div className="hidden sm:flex items-center gap-2">
+          <div className="bg-green-500 rounded-full w-2 h-2"></div>
+          <span className="text-green-600 text-xs sm:text-sm">Online</span>
           {currentMode && (
             <Badge variant="outline" className="text-xs">
               {currentMode.name}
@@ -39,12 +44,40 @@ export function ChatHeader({
           )}
         </div>
       </div>
+
+      {/* Actions */}
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="sm" onClick={createNewConversation} disabled={isCreatingNewChat}>
-          {isCreatingNewChat ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+        {/* New Chat button */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={createNewConversation}
+          disabled={isCreatingNewChat}
+          className="hidden md:flex gap-2"
+        >
+          {isCreatingNewChat ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Plus className="w-4 h-4" />
+          )}
           New Chat
         </Button>
+
+        {/* Theme toggle */}
         <ThemeToggle />
+
+        {/* Sidebar toggle - only on mobile */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden"
+          onClick={() => {
+            toggleSidebar()
+            setOpen(true)
+          }}
+        >
+          <Menu className="size-5" />
+        </Button>
       </div>
     </div>
   )

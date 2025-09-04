@@ -1,11 +1,14 @@
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Button } from "@/components/ui/button"
-import { Loader2 } from "lucide-react"
-import type { Message } from "@ai-sdk/react"
-import { ChatMessage } from "./ChatMessage"
-import type { IntegrationMode } from "./types"
-import { useEffect } from "react"
-import Image from "next/image"
+import { useEffect } from 'react';
+
+import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
+
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import type { Message } from '@ai-sdk/react';
+
+import { ChatMessage } from './ChatMessage';
+import type { IntegrationMode } from './types';
 
 interface ChatPanelProps {
   messages: Message[]
@@ -44,26 +47,26 @@ export function ChatPanel({
   }, [messages, status])
 
   return (
-    <div className="flex-1 flex flex-col bg-gray-50 dark:bg-gray-800 min-h-0">
+    <div className="flex flex-col flex-1 bg-gray-50 dark:bg-gray-800 min-h-0">
       <ScrollArea className="flex-1 min-h-0" ref={scrollAreaRef}>
-        <div className="max-w-4xl mx-auto space-y-4 p-4 pb-6">
+        <div className="space-y-4 mx-auto p-4 pb-6 max-w-4xl">
           {messages.length === 0 && (
-            <div className="text-center py-8">
-              <div className="bg-white dark:bg-gray-900 rounded-lg p-6 shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
+            <div className="py-8 text-center">
+              <div className="bg-white dark:bg-gray-900 shadow-sm p-6 rounded-lg">
+                <div className="flex flex-col justify-center items-center mb-4">
                   {currentMode && <Image src={currentMode.image} alt={currentMode.name} width={32} height={32} />}
-                  <div>
-                    <h3 className="text-lg font-semibold">{currentMode?.name}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{currentMode?.description}</p>
+                  <div className="flex flex-col justify-center items-center w-full">
+                    <h3 className="font-semibold text-lg">{currentMode?.name}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">{currentMode?.description}</p>
                   </div>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                <p className="mb-4 text-gray-600 dark:text-gray-400">
                   Hello! I'm your Mifos Community assistant. I can help with general questions or connect to Slack,
                   Jira, and GitHub. Select a mode above to get started!
                 </p>
-                <div className="text-left space-y-2 mb-6">
+                <div className="space-y-2 mb-6 text-left">
                   <p className="font-semibold text-gray-800 dark:text-gray-200">How to use:</p>
-                  <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                  <ul className="space-y-1 text-gray-600 dark:text-gray-400 text-sm">
                     {integrationModes.map((mode) => (
                       <li key={mode.id} className="flex items-center gap-2">
                         <Image src={mode.image} alt={mode.name} width={16} height={16} />
@@ -73,14 +76,14 @@ export function ChatPanel({
                   </ul>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 mb-3">Quick actions:</p>
-                  <div className="flex flex-wrap gap-2">
+                  <p className="mb-3 text-gray-500 text-sm">Quick actions:</p>
+                  <div className="gap-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                     {quickActions.map((action, index) => (
                       <Button
                         key={index}
                         variant="outline"
                         size="sm"
-                        className="text-xs hover:bg-blue-50 hover:border-blue-300 dark:hover:bg-gray-700"
+                        className="hover:bg-blue-50 dark:hover:bg-gray-700 hover:border-blue-300 text-xs"
                         onClick={() => handleQuickAction(action)}
                       >
                         {action}
@@ -97,11 +100,11 @@ export function ChatPanel({
           ))}
 
           {(status === "submitted" || status === "streaming") && (
-            <div className="flex gap-3 justify-start">
-              <div className="bg-white dark:bg-gray-900 shadow-sm border rounded-lg px-4 py-3">
+            <div className="flex justify-start gap-3">
+              <div className="bg-white dark:bg-gray-900 shadow-sm px-4 py-3 border rounded-lg">
                 <div className="flex items-center gap-2">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span className="text-gray-600 dark:text-gray-400 text-sm">
                     {status === "submitted" ? "Thinking..." : "Typing..."}
                   </span>
                 </div>
@@ -112,9 +115,9 @@ export function ChatPanel({
       </ScrollArea>
 
       {error && (
-        <div className="p-4 bg-red-50 border-t border-red-200">
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <p className="text-sm text-red-600">Something went wrong. Please try again.</p>
+        <div className="bg-red-50 p-4 border-t border-red-200">
+          <div className="flex justify-between items-center mx-auto max-w-4xl">
+            <p className="text-red-600 text-sm">Something went wrong. Please try again.</p>
             <Button variant="outline" size="sm" onClick={reload}>
               Retry
             </Button>
