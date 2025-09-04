@@ -59,7 +59,6 @@ This script localizes Android resource files by comparing the **English base** (
 4. **Translation**: For each unmatched cache entry, `translate_text` prompts the Groq model and retries if the response looks suspicious.
 5. **Write-out**: Translated content is injected into a copy of the target XML tree and saved as a pretty-printed file in `values-xx-auto/strings.xml`.
 
-> Note: The helper `prettify_key` exists in the codebase but isn’t used in the current flow.
 
 ## Requirements
 
@@ -263,4 +262,5 @@ Set a custom cache path via `translate_repo(..., cache_file="path/to/cache.json"
 * Add CLI flags (argparse) instead of editing `__main__`.
 * Add unit tests and CI checks.
 * Add validation that format specifiers are intact post-translation.
+
 
