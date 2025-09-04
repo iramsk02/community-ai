@@ -1,4 +1,4 @@
-# Android XML Localization Translator (Groq)
+# Android Files Language Translator
 
 Translate Android `strings.xml` resources from English into any target language using the Groq LLM API. The tool parses XML safely, aligns keys, retries on transient failures, caches results, and writes a clean, pretty-printed `strings.xml` for the target language.
 
@@ -263,3 +263,4 @@ Set a custom cache path via `translate_repo(..., cache_file="path/to/cache.json"
 * Add CLI flags (argparse) instead of editing `__main__`.
 * Add unit tests and CI checks.
 * Add validation that format specifiers are intact post-translation.
+
