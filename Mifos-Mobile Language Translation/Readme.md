@@ -20,7 +20,6 @@ Translate Android `strings.xml` resources from English into any target language 
   - [What Gets Translated](#what-gets-translated)
   - [Caching Behavior](#caching-behavior)
   - [Error Handling \& Retries](#error-handling--retries)
-  - [Output Formatting](#output-formatting)
   - [Performance Tips](#performance-tips)
   - [Troubleshooting](#troubleshooting)
   - [Security Notes](#security-notes)
@@ -231,3 +230,4 @@ Set a custom cache path via `translate_repo(..., cache_file="path/to/cache.json"
 
 * Make a standalone tool which can be used in future to translate only the newly added parts of the language.
 * Periodically check with more improved LLM models coming out to enhance the translations
+
