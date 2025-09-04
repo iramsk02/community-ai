@@ -16,7 +16,6 @@ Translate Android `strings.xml` resources from English into any target language 
   - [Configuration](#configuration)
   - [Project Layout Expectations](#project-layout-expectations)
   - [Basic Usage](#basic-usage)
-  - [Batch Translation Across a Repo](#batch-translation-across-a-repo)
   - [Adding a New Language](#adding-a-new-language)
   - [What Gets Translated](#what-gets-translated)
   - [Caching Behavior](#caching-behavior)
@@ -129,10 +128,10 @@ The default example in `__main__` is:
 if __name__ == "__main__":
     repo_root = "./app"
     translate_repo(
-        repo_root,
-        source_folder="values-ar",   # the folder containing target strings.xml files
-        target_language="Arabic"      # human-readable language name used in the prompt
-    )
+    repo_root="./app",          # or the root of your Android project
+    source_folder="values-fr",  # the language folder to translate FROM (often values-xx)
+    target_language="French",   # human-readable target language name
+)
 ```
 
 This will:
@@ -140,23 +139,6 @@ This will:
 * Walk `./app` for any `strings.xml` under `values-ar`.
 * Pair each with the corresponding `values/strings.xml`.
 * Write translations to `values-ar-auto/strings.xml`.
-
-## Batch Translation Across a Repo
-
-To process many modules at once:
-
-```python
-from your_script import translate_repo
-
-translate_repo(
-    repo_root="./app",          # or the root of your Android project
-    source_folder="values-fr",  # the language folder to translate FROM (often values-xx)
-    target_language="French",   # human-readable target language name
-    cache_file=None              # optional; default: translation_cache_<lang>.json
-)
-```
-
-`collect_translation_files` writes a `file_pairs.json` summary at the project root so you can review what will be translated.
 
 ## Adding a New Language
 
@@ -262,5 +244,6 @@ Set a custom cache path via `translate_repo(..., cache_file="path/to/cache.json"
 * Add CLI flags (argparse) instead of editing `__main__`.
 * Add unit tests and CI checks.
 * Add validation that format specifiers are intact post-translation.
+
 
 
