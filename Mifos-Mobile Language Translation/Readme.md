@@ -184,11 +184,6 @@ This will:
 * An additional **manual retry loop** (up to 5 attempts) triggers if output looks suspicious (empty, extremely short, or only punctuation).
 * On persistent failure, the original English text is used as a fallback so the pipeline completes.
 
-## Output Formatting
-
-* Pretty-printed via `minidom.toprettyxml(indent="    ")`.
-* Fallback: if pretty printing fails, writes a basic XML with `ElementTree`.
-
 ## Performance Tips
 
 * Run with an initialized target file that mirrors English keys to minimize misses.
@@ -234,16 +229,5 @@ Set a custom cache path via `translate_repo(..., cache_file="path/to/cache.json"
 
 ## Future Improvements
 
-* Array alignment is index-based; differing array lengths beyond the min are ignored.
-* Placeholders and embedded markup are not explicitly guarded by the default prompt.
-* Index used in the cache context for arrays is zero-based (only affects cache keys, not XML structure).
-
-**Potential enhancements**
-
-* Add `<plurals>` support and placeholder-protection rules.
-* Add CLI flags (argparse) instead of editing `__main__`.
-* Add unit tests and CI checks.
-* Add validation that format specifiers are intact post-translation.
-
-
-
+* Make a standalone tool which can be used in future to translate only the newly added parts of the language.
+* Periodically check with more improved LLM models coming out to enhance the translations
