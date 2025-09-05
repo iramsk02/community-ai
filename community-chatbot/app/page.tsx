@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Sidebar } from "@/components/chatbot/Sidebar";
+import { AppSidebar } from "@/components/chatbot/Sidebar/Sidebar";
 import { ChatHeader } from "@/components/chatbot/ChatHeader";
 import { ModeSelector } from "@/components/chatbot/ModeSelector";
 import { ChatPanel } from "@/components/chatbot/ChatPanel";
@@ -677,24 +677,20 @@ export default function ChatbotPage() {
   }, [chatHistory, activeConversationId, selectedMode]);
 
   return (
-    <div className="flex bg-gray-50 dark:bg-gray-900 h-screen">
-      <Sidebar
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
+    <main className="flex w-full h-screen">
+      <AppSidebar
         chatHistory={chatHistory.filter((c) => c.mode === selectedMode)}
-        isCreatingNewChat={isCreatingNewChat}
         createNewConversation={createNewConversation}
+        isCreatingNewChat={isCreatingNewChat}
         switchConversation={switchConversation}
         deleteConversation={deleteConversation}
         integrationModes={integrationModes}
-        currentMode={selectedMode}
       />
 
-      <div className="flex flex-col flex-1 min-h-0">
+      <div className="flex flex-col w-full">
         <ChatHeader
           currentMode={currentMode}
           isCreatingNewChat={isCreatingNewChat}
-          setSidebarOpen={setSidebarOpen}
           createNewConversation={createNewConversation}
         />
 
@@ -726,6 +722,6 @@ export default function ChatbotPage() {
           currentModeName={currentMode?.name}
         />
       </div>
-    </div>
+    </main>
   );
 }
