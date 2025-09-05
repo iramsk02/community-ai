@@ -18,33 +18,36 @@ An advanced, extensible chatbot platform designed for seamless integration with 
 ## Directory Structure
 
 ```
-Chatbot_for_gsoc/
+community-chatbot/
 │
 ├── app/                # Next.js frontend (pages, components, styles)
 ├── components/         # React UI components (chatbot, UI library)
 ├── hooks/              # React hooks
 ├── lib/                # Frontend utility libraries
 ├── public/             # Static assets
-├── scripts/            # FastAPI backend (Jira, Slack and Github agents)
+├── scripts/            # FastAPI backend (Jira, Slack, GitHub agents)
 ├── styles/             # Global styles
-├── ...
+└── ...
 ```
+
+---
 
 ## Getting Started
 
 ### Prerequisites
+- **Python** 3.8+
+- **Node.js** 18+
 
-- Python 3.8+
-- Node.js 18+
-
-### Backend Setup
+### Backend Setup (FastAPI)
 
 1. **Create and activate a virtual environment**  
+
    On Unix/macOS:
    ```bash
    python3 -m venv venv
    source venv/bin/activate
    ```
+
    On Windows:
    ```bash
    python -m venv venv
@@ -56,51 +59,70 @@ Chatbot_for_gsoc/
    pip install -r requirements.txt
    ```
 
-3. **Set environment variables**  
-   A) Create a `.env` file with following credentials:
+3. **Configure environment variables**  
+   Create a `.env` file in the project root:
+
+   ```ini
+   # Backend
+   NEXT_PUBLIC_FASTAPI_URL=http://localhost:8000
+
+   # OpenAI
+   OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
+
+   # Slack
+   SLACK_BOT_TOKEN=<YOUR_SLACK_BOT_TOKEN>
+
+   # Jira
+   JIRA_API_TOKEN=<YOUR_JIRA_API_TOKEN>
+   JIRA_USERNAME=<YOUR_JIRA_USERNAME>
+   JIRA_INSTANCE_URL=https://mifosforge.jira.com
+   JIRA_CLOUD=True
+
+   # GitHub
+   GITHUB_APP_ID=<YOUR_GITHUB_APP_ID>
+   GITHUB_REPOSITORY=staru09/Github_analyser
+   GITHUB_BRANCH=main
+   GITHUB_BASE_BRANCH=main
+   GITHUB_APP_PRIVATE_KEY=<YOUR_GITHUB_APP_PRIVATE_KEY>
+
+   # Firebase
+   NEXT_PUBLIC_FIREBASE_API_KEY=<YOUR_FIREBASE_API_KEY>
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=<YOUR_FIREBASE_AUTH_DOMAIN>
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=<YOUR_FIREBASE_PROJECT_ID>
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=<YOUR_FIREBASE_STORAGE_BUCKET>
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=<YOUR_FIREBASE_MESSAGING_SENDER_ID>
+   NEXT_PUBLIC_FIREBASE_APP_ID=<YOUR_FIREBASE_APP_ID>
+   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=<YOUR_FIREBASE_MEASUREMENT_ID>
    ```
-    NEXT_PUBLIC_FASTAPI_URL=http://localhost:8000
-    OPENAI_API_KEY=
-    SLACK_BOT_TOKEN=
-    JIRA_API_TOKEN=
-    JIRA_USERNAME=
-    JIRA_INSTANCE_URL=
-    JIRA_CLOUD=
-    GITHUB_APP_ID=
-    GITHUB_REPOSITORY=
-    GITHUB_BRANCH=
-    GITHUB_BASE_BRANCH=
-    GITHUB_APP_PRIVATE_KEY=
+
+   ⚠️ **Note:** In `github_agent.py`, uncomment this line:
+   ```python
+   os.environ['GITHUB_APP_PRIVATE_KEY']
    ```
-   B) Create an `.env.local` file with these credentials (auth):
-   ```
-    GOOGLE_CLIENT_ID=
-    GOOGLE_CLIENT_SECRET=
-    NEXTAUTH_SECRET=
-    NEXTAUTH_URL=http://localhost:3000
-   ```
+   as there is some issue loading it from the `.env` file.
+
 4. **Run FastAPI server**  
-   **Note**:- Uncomment this line in github_agent.py
-   ```os.environ['GITHUB_APP_PRIVATE_KEY']``` as there is some issue loading it from the env file and then run this bash command to start the backend server.
+   Run this bash command to start the backend server.
    ```bash
    ./scripts/run_backend.sh
    ```
 
+---
+
 ### Frontend Setup
 
 1. **Install Node dependencies**  
-Run this bash command in the root directory of the project. 
+   Run this bash command in the root directory of the project. 
    ```bash
    npm install
    ```
 
-2. **Run Next.js app**  
+2. **Run Next.js development server**  
    ```bash
    npm run dev
    ```
 
 ---
-
 
 ## To Do
 
