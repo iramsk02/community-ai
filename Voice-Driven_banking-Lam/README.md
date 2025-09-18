@@ -9,6 +9,14 @@ The included React application serves as a demonstration client to visualize and
 
 The backend is designed as a standalone service that can be easily integrated into other applications, such as those within the Mifos ecosystem. It exposes a powerful conversational endpoint that requires only a user identifier, an audio file, and a session ID to function. Internally, it orchestrates a complete pipeline of AI services to understand the user's request, securely fetch their financial data, and generate a natural spoken response.
 
+
+FLow Chat:
+
+https://mifosforge.jira.com/wiki/spaces/RES/whiteboard/4641226783
+
+
+<img width="1872" height="756" alt="image" src="https://github.com/user-attachments/assets/ec431b78-a8ed-4c03-91e9-6374cd1cd0d6" />
+
 The ultimate vision is to create a specialized, domain-specific AI agent for the banking sector, capable of handling complex, multi-turn financial queries in multiple languages.
 ## Features
 
@@ -94,3 +102,14 @@ npm install
 npm start
 ```
 Your application will be available at http://localhost:3000.
+
+
+See the drive link video for what kind of questions and queries users can ask for this initial Phase.
+
+https://drive.google.com/file/d/1HvkQ6v2KEk92pOyfSE7oKp1107CTQq-Z/view?usp=sharing
+
+
+
+https://github.com/user-attachments/assets/6ea9464e-fc70-420e-9cca-6b88ecd2dd88
+
+
