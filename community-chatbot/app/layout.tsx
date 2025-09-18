@@ -1,10 +1,12 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { Providers } from "@/components/providers"
-import { AuthGuard } from "@/components/auth-guard"
-import { Toaster } from "@/components/ui/toaster"
+import './globals.css';
+
+import type React from 'react';
+
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+
+import { Providers } from '@/components/providers';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -23,9 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Toaster />
-          <AuthGuard>
-            {children}
-          </AuthGuard>
+          {children}
         </Providers>
       </body>
     </html>

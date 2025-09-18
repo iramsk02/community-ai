@@ -2,6 +2,8 @@
 
 An advanced, extensible chatbot platform designed for seamless integration with Jira, Slack, and GitHub. Built with a FastAPI (Python) backend and a Next.js (React) frontend, it leverages LangChain and OpenAI to provide intelligent, conversational automation and agent-based workflows. The platform features a modern UI, robust authentication, and is easily customizable for a variety of community and project management
 
+This project was completed during Google Summer of Code (GSOC) 
+
 ---
 
 ## Features
