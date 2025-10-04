@@ -15,7 +15,7 @@ from langchain.prompts import PromptTemplate
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
-# Pydantic models
+# Pydantic models--
 class JiraQueryRequest(BaseModel):
     query: str
     use_fallback: bool = True 
