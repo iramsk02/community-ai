@@ -13,7 +13,7 @@ from contextlib import asynccontextmanager
 
 load_dotenv()
 
-#os.environ['GITHUB_APP_PRIVATE_KEY'] = """ Replace with the actual private key """
+os.environ['GITHUB_APP_PRIVATE_KEY'] = """ Replace with the actual private key """
 
 # Pydantic models for request/response
 class ChatMessage(BaseModel):

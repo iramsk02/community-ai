@@ -15,10 +15,12 @@ export function GoogleSignInButton() {
     const router = useRouter()
     const { toast } = useToast()
 
+
     const handleGoogleSignIn = async () => {
         setLoading(true)
         try {
             const provider = new GoogleAuthProvider()
+            console.log(provider)
             await signInWithPopup(auth, provider)
             router.push("/")
             toast({
