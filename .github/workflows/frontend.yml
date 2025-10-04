@@ -1,0 +1,35 @@
+# .github/workflows/frontend.yml
+name: Frontend CI
+
+on:
+  push:
+    paths:
+      - 'community-chatbot/**'
+  pull_request:
+    paths:
+      - 'community-chatbot/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd community-chatbot
+          npm install
+
+      - name: Build Next.js app
+        run: |
+          cd community-chatbot
+          npm run build
+
+
