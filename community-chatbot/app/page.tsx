@@ -20,7 +20,7 @@ import {
 import { db } from "@/app/firebase/config";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-// Integration Modes (config)
+// Integration Modes (config)--
 const integrationModes: IntegrationMode[] = [
   {
     id: "general",
