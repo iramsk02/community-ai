@@ -20,7 +20,6 @@ export function GoogleSignInButton() {
         setLoading(true)
         try {
             const provider = new GoogleAuthProvider()
-            console.log(provider)
             await signInWithPopup(auth, provider)
             router.push("/")
             toast({
