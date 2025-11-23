@@ -7,26 +7,26 @@ from pathlib import Path
 from typing import Any, cast
 
 from langchain_core.messages import (
-    AIMessage,
     BaseMessage,
+    AIMessage,
     HumanMessage,
     SystemMessage,
     ToolMessage,
+    ChatMessage,
+    FunctionMessage
 )
 
-from langchain_core.messages import ChatMessage, FunctionMessage
-
-from utils import truthy
+from .utils import truthy
 
 
 __all__ = ["RuntimeState", "MESSAGE_TYPE_REGISTRY"]
 
 
-_STATE_FILE_ENV = "GITHUB_MCP_STATE_FILE"
-_STATE_DIR_ENV = "GITHUB_MCP_STATE_DIR"
-_STATE_DISABLE_ENV = "GITHUB_MCP_DISABLE_PERSISTENCE"
-_DEFAULT_STATE_FILENAME = "github_mcp_sessions.json"
-_DEFAULT_STATE_SUBDIR = ".github_mcp"
+_STATE_FILE_ENV = "MCP_STATE_FILE"
+_STATE_DIR_ENV = "MCP_STATE_DIR"
+_STATE_DISABLE_ENV = "MCP_DISABLE_PERSISTENCE"
+_DEFAULT_STATE_FILENAME = "mcp_sessions.json"
+_DEFAULT_STATE_SUBDIR = ".mcp"
 
 MESSAGE_TYPE_REGISTRY: dict[str, type[BaseMessage]] = {
     "ai": AIMessage,
@@ -43,7 +43,7 @@ def _persistence_disabled() -> bool:
     return truthy(os.getenv(_STATE_DISABLE_ENV))
 
 
-def _resolve_state_file_path() -> Path:
+def _resolve_state_file_path(service_name: str = "mcp") -> Path:
     if _persistence_disabled():
         return Path(os.devnull)
 
@@ -56,7 +56,7 @@ def _resolve_state_file_path() -> Path:
             base_path = Path(base_dir).expanduser()
         else:
             base_path = Path.home() / _DEFAULT_STATE_SUBDIR
-        path = base_path / _DEFAULT_STATE_FILENAME
+        path = base_path / f"{service_name}_sessions.json"
 
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -74,7 +74,7 @@ def _serialize_message(message: BaseMessage) -> dict[str, Any]:
         data = json.loads(message.json())
     except (AttributeError, ValueError, TypeError):
         if hasattr(message, "dict"):
-            data = cast(Any, message).dict()  # type: ignore[call-arg]
+            data = cast(Any, message).dict()
         else:
             data = {"content": getattr(message, "content", "")}
     data.pop("type", None)
@@ -128,7 +128,8 @@ def _deserialize_message(payload: dict[str, Any]) -> BaseMessage | None:
 class RuntimeState:
     """Holds runtime information shared across CLI commands."""
 
-    def __init__(self) -> None:
+    def __init__(self, service_name: str = "mcp") -> None:
+        self.service_name = service_name
         self.agent_executor: Any = None
         self.mcp_client: Any | None = None
         self.chat_sessions: dict[str, list[BaseMessage]] = {}
@@ -137,7 +138,7 @@ class RuntimeState:
         self.tool_map: dict[str, Any] = {}
         self.tool_details: dict[str, dict[str, Any]] = {}
         self.persistence_enabled: bool = not _persistence_disabled()
-        self.state_file_path: Path = _resolve_state_file_path()
+        self.state_file_path: Path = _resolve_state_file_path(service_name)
         if self.persistence_enabled:
             self._load_persisted_sessions()
 

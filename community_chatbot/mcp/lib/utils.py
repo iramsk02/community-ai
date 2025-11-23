@@ -41,10 +41,10 @@ def load_json_env(
         ) from exc
     if not isinstance(parsed, dict):
         raise ValueError(
-                (
-                    f"Environment variable {env_name} must be a JSON object "
-                    "with string keys."
-                )
+            (
+                f"Environment variable {env_name} must be a JSON object "
+                "with string keys."
+            )
         )
     if value_validator is None:
         return {str(k): str(v) for k, v in parsed.items()}
@@ -54,57 +54,85 @@ def load_json_env(
     return validated
 
 
-def build_connection_config() -> dict[str, Any]:
-    server_url = os.getenv(
-        "GITHUB_MCP_SERVER_URL", "https://api.githubcopilot.com/mcp/"
-    ).strip()
+def build_connection_config(
+    service_name: str = "github",
+    server_url_env: str = "GITHUB_MCP_SERVER_URL",
+    default_server_url: str = "https://api.githubcopilot.com/mcp/",
+    token_env: str = "GITHUB_PERSONAL_ACCESS_TOKEN",
+    bearer_token_env: str | None = "GITHUB_MCP_BEARER_TOKEN",
+) -> dict[str, Any]:
+    """
+    Build connection configuration for MCP services.
+    
+    Args:
+        service_name: Name of the service (for logging/display)
+        server_url_env: Environment variable name for server URL
+        default_server_url: Default server URL if not specified
+        token_env: Primary token environment variable name
+        bearer_token_env: Optional bearer token environment variable name
+    """
+    server_url = os.getenv(server_url_env, default_server_url).strip()
     if not server_url:
-        raise ValueError("GITHUB_MCP_SERVER_URL cannot be empty.")
+        raise ValueError(f"{server_url_env} cannot be empty.")
 
-    if truthy(os.getenv("GITHUB_MCP_USE_READONLY_PATH")) and not \
-       server_url.endswith("/readonly"):
+    # Check for readonly path configuration
+    readonly_path_env = f"{service_name.upper()}_MCP_USE_READONLY_PATH"
+    if truthy(os.getenv(readonly_path_env)) and not server_url.endswith("/readonly"):
         server_url = server_url.rstrip("/") + "/readonly"
 
+    transport_env = f"{service_name.upper()}_MCP_TRANSPORT"
     transport = (
-        os.getenv("GITHUB_MCP_TRANSPORT", "streamable_http").strip().lower()
+        os.getenv(transport_env, "streamable_http").strip().lower()
     )
     if transport not in {"streamable_http", "sse"}:
         raise ValueError(
-            "Unsupported GITHUB_MCP_TRANSPORT. Use 'streamable_http' or 'sse'."
+            f"Unsupported {transport_env}. Use 'streamable_http' or 'sse'."
         )
 
     headers: dict[str, str] = {}
-    auth_token = (
-        os.getenv("GITHUB_MCP_BEARER_TOKEN")
-        or os.getenv("GITHUB_PERSONAL_ACCESS_TOKEN")
-    )
+    auth_token = os.getenv(bearer_token_env) if bearer_token_env else None
+    if not auth_token:
+        auth_token = os.getenv(token_env)
     if auth_token:
         headers["Authorization"] = f"Bearer {auth_token}"
-    toolsets = os.getenv("GITHUB_MCP_TOOLSETS")
+
+    # Check for toolsets configuration
+    toolsets_env = f"{service_name.upper()}_MCP_TOOLSETS"
+    toolsets = os.getenv(toolsets_env)
     if toolsets:
         headers["X-MCP-Toolsets"] = toolsets.strip()
-    if truthy(os.getenv("GITHUB_MCP_READONLY")):
+
+    # Check for readonly flag
+    readonly_env = f"{service_name.upper()}_MCP_READONLY"
+    if truthy(os.getenv(readonly_env)):
         headers["X-MCP-Readonly"] = "true"
-    user_agent = os.getenv("GITHUB_MCP_USER_AGENT")
+
+    # Check for user agent
+    user_agent_env = f"{service_name.upper()}_MCP_USER_AGENT"
+    user_agent = os.getenv(user_agent_env)
     if user_agent:
         headers["User-Agent"] = user_agent.strip()
-    headers.update(load_json_env("GITHUB_MCP_EXTRA_HEADERS"))
+
+    # Check for extra headers
+    extra_headers_env = f"{service_name.upper()}_MCP_EXTRA_HEADERS"
+    headers.update(load_json_env(extra_headers_env))
 
     connection: dict[str, Any] = {"url": server_url, "transport": transport}
     if headers:
         connection["headers"] = headers
 
-    timeout = os.getenv("GITHUB_MCP_TIMEOUT_SECONDS")
+    timeout_env = f"{service_name.upper()}_MCP_TIMEOUT_SECONDS"
+    timeout = os.getenv(timeout_env)
     if timeout:
         try:
             timeout_value = float(timeout)
         except ValueError as exc:
             raise ValueError(
-                "GITHUB_MCP_TIMEOUT_SECONDS must be a positive number"
+                f"{timeout_env} must be a positive number"
             ) from exc
         if timeout_value <= 0:
             raise ValueError(
-                "GITHUB_MCP_TIMEOUT_SECONDS must be greater than zero"
+                f"{timeout_env} must be greater than zero"
             )
         connection["timeout"] = timeout_value
 
