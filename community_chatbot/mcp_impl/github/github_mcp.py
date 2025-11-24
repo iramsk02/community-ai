@@ -3,8 +3,8 @@ import asyncio
 from dotenv import load_dotenv
 import typer
 
-from community_chatbot.mcp.lib.state import RuntimeState
-from community_chatbot.mcp.github import commands
+from lib.state import RuntimeState
+from github import commands
 
 
 load_dotenv()

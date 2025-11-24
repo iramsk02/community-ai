@@ -1,5 +1,5 @@
 import os
-from community_chatbot.mcp.lib.base_agent import BaseAgent
+from lib.base_agent import BaseAgent
 
 __all__ = [
     "get_github_agent",

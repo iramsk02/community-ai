@@ -1,6 +1,6 @@
-from community_chatbot.mcp.lib import base_commands
-from community_chatbot.mcp.lib.state import RuntimeState
-from community_chatbot.mcp.github.agent import get_github_agent
+from lib import base_commands
+from lib.state import RuntimeState
+from slack.agent import get_slack_agent
 
 
 __all__ = [
@@ -16,15 +16,15 @@ __all__ = [
 ]
 
 
-_github_agent = get_github_agent()
+_slack_agent = get_slack_agent()
 
 
 async def list_tools(state: RuntimeState) -> int:
-    return await base_commands.list_tools(state, _github_agent)
+    return await base_commands.list_tools(state, _slack_agent)
 
 
 async def tool_info(state: RuntimeState, tool_identifier: str) -> int:
-    return await base_commands.tool_info(state, _github_agent, tool_identifier)
+    return await base_commands.tool_info(state, _slack_agent, tool_identifier)
 
 
 async def invoke_tool(
@@ -33,7 +33,7 @@ async def invoke_tool(
     args_json: str | None = None,
 ) -> int:
     return await base_commands.invoke_tool(
-        state, _github_agent, tool_identifier, args_json
+        state, _slack_agent, tool_identifier, args_json
     )
 
 
@@ -42,7 +42,7 @@ async def chat(
     message: str,
     session_id: str = "default",
 ) -> int:
-    return await base_commands.chat(state, _github_agent, message, session_id)
+    return await base_commands.chat(state, _slack_agent, message, session_id)
 
 
 async def chat_loop(
@@ -54,7 +54,7 @@ async def chat_loop(
 ) -> int:
     return await base_commands.chat_loop(
         state,
-        _github_agent,
+        _slack_agent,
         session_id,
         exit_command,
         reset_command,

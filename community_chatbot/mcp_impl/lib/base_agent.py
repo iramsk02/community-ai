@@ -22,9 +22,9 @@ __all__ = [
 
 
 def _get_llm_provider():
-    from community_chatbot.mcp.llm_providers import gemini
-    from community_chatbot.mcp.llm_providers import lightning_llm
-    from community_chatbot.mcp.llm_providers import groq_llm
+    from llm_providers import gemini
+    from llm_providers import lightning_llm
+    from llm_providers import groq_llm
 
     provider = os.getenv("LLM_PROVIDER", "gemini").lower()
 

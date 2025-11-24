@@ -3,6 +3,7 @@ langchain
 langchain-community
 langchain-core
 langchain-google-genai
+langchain-openai
 langchain-text-splitters
 langchain-mcp-adapters
 langsmith
@@ -17,6 +18,7 @@ google-genai
 
 # External APIs
 pygithub
+slack-sdk
 
 # Utilities
 pydantic
