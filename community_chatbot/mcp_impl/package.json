@@ -1,13 +1,9 @@
 {
-  "name": "community-mcp-impl",
+  "name": "mcp-agents",
   "version": "1.0.0",
-  "description": "MCP Implementation for Community AI Agents",
+  "description": "Node.js MCP server dependencies for Slack and other stdio-based agents",
   "private": true,
   "dependencies": {
-    "slack-mcp-server": "latest",
-    "slack-mcp-server-windows-amd64": "1.1.26"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "slack-mcp-server": "latest"
   }
 }

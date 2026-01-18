@@ -1,13 +1,10 @@
 import os
 from lib.base_agent import BaseAgent
 
-__all__ = [
-    "get_github_agent",
-]
+__all__ = ["get_github_agent"]
 
 
 def get_github_agent() -> BaseAgent:
-
     if not (
         os.getenv("GITHUB_PERSONAL_ACCESS_TOKEN")
         or os.getenv("GITHUB_MCP_BEARER_TOKEN")
