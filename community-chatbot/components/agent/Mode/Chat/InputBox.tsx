@@ -1,30 +1,13 @@
-import { usePathname } from 'next/navigation';
-
-import { useToast } from '@/hooks/use-toast';
-import { useAgentStore } from '@/lib/store/agent/agentStore';
+import { useSendMessage } from '@/hooks/agent/Mode/Chat/useSendMessage';
 
 import { MessageInput } from './InputBox/MessageInput';
 import { SubmitButton } from './InputBox/SubmitButton';
 
 export function InputBox() {
-  const pathname = usePathname();
-  const mode = pathname.split('/')[1];
-  const chatId = pathname.split('/')[2];
-
-  const { sendMessage } = useAgentStore();
-  const { toast } = useToast();
-
+  const { handleSendMessage } = useSendMessage();
   const handleSubmit = async (event?: React.FormEvent) => {
     if (event) event.preventDefault();
-    try {
-      await sendMessage(chatId, mode);
-    } catch (err: any) {
-      toast({
-        variant: 'destructive',
-        title: 'Error sending message',
-        description: err.message || 'Could not send your message.',
-      });
-    }
+    handleSendMessage()
   };
 
   return (

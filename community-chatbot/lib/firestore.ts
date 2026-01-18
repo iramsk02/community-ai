@@ -63,7 +63,6 @@ export const addConversation = async (
 	}
 };
 
-
 // Updates an existing conversation, verifying ownership first.
 export const updateConversation = async (
 	conversationId: string,
@@ -96,7 +95,6 @@ export const updateConversation = async (
 		);
 	}
 };
-
 
 // Deletes a conversation, ensuring only the owner can delete it.
 export const deleteConversationFromDB = async (
