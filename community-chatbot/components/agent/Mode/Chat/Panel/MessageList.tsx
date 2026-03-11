@@ -23,11 +23,36 @@ export function MessageList({ messages }: MessageListProps) {
               : 'bg-white dark:bg-gray-700 shadow-sm border dark:border-gray-600 max-w-[80%]'
               }`}
           >
-            <div className="whitespace-pre-wrap">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {message.content}
-              </ReactMarkdown>
-            </div>
+           
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                pre: ({ children }) => (
+                  <pre className="whitespace-pre-wrap break-words overflow-hidden">
+                    {children}
+                  </pre>
+                ),
+                code: ({ inline, children }: any) => (
+                  <code
+                    className={`${inline
+                      ? "whitespace-pre-wrap break-words"
+                      : "block whitespace-pre-wrap break-words"
+                      }`}
+                  >
+                    {children}
+                  </code>
+                ),
+                a: ({ children }) => (
+                  <span className="break-all">{children}</span>
+                ),
+                table: ({ children }) => (
+                  <div className="overflow-hidden">{children}</div>
+                ),
+              }}
+            >
+              {message.content}
+            </ReactMarkdown>
+            
           </div>
             <CopyButton
               textToCopy={message.content}
