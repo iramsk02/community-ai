@@ -1,15 +1,16 @@
 import { StateCreator } from 'zustand';
 
-import { updateConversation } from '@/lib/firestore';
 import { authSlice } from '@/lib/store/agent/slices/authSlice';
 import { conversationSlice } from '@/lib/store/agent/slices/conversationSlice';
 import { Message } from '@/types/chat/types';
 
-const generateChatTitle = (firstMessage: string): string => {
-  const words = firstMessage.split(" ").slice(0, 6).join(" ");
-  return words.length > 40 ? words.substring(0, 40) + "..." : words;
-};
+import {
+  finaliseConversation, generateChatTitle, handleSendError,
+  handleStreamingResponse, performStateUpdate,
+} from './message/utils';
 
+// Define a type for the combined store
+type MessageStore = messageSlice & conversationSlice & authSlice;
 export interface messageSlice {
   messages: Message[];
   input: string;
@@ -17,14 +18,14 @@ export interface messageSlice {
   abortController: AbortController | null;
 
   setInput: (input: string) => void;
-  sendMessage: (chatId: string, mode: string) => Promise<void>;
+  sendMessage: (chatId: string, mode: string, text: string) => Promise<void>;
   fetchMessages: (chatId: string) => Promise<void>;
   handleQuickAction: (action: string, chatId: string, mode: string) => void;
   stopStreaming: () => void;
 }
 
 export const createMessageSlice: StateCreator<
-  messageSlice & conversationSlice & authSlice,
+  MessageStore,
   [],
   [],
   messageSlice
@@ -37,157 +38,57 @@ export const createMessageSlice: StateCreator<
   setInput: (input) => set({ input }),
 
   fetchMessages: async (chatId) => {
-    set({
-      status: 'loading',
-      messages: []
-    });
+    set({ status: 'loading', messages: [] });
     try {
-      const chat = get().chats.find(
-        c => c.id === chatId
-      );
-      if (!chat) {
-        throw new Error("No messages found for this conversation.");
-      }
+      const chat = get().chats.find(c => c.id === chatId);
+      if (!chat) throw new Error("No messages found for this conversation.");
       set({ messages: chat.messages || [], status: 'ready' });
     } catch (err) {
       console.error("Failed to fetch messages:", err);
-      set({
-        status: 'error',
-        messages: []
-      });
-      throw err; // Re-throw the error
+      set({ status: 'error', messages: [] });
+      throw err;
     }
   },
 
-  sendMessage: async (chatId, mode) => {
-    const messageContent = get().input.trim();
-    if (!messageContent) return;
-
+  sendMessage: async (chatId, mode, text) => {
     const userMessage: Message = {
       id: crypto.randomUUID(),
       role: "user",
-      content: messageContent,
+      content: text,
       timestamp: Date.now(),
     };
 
-    const isFirstMessage = get().messages.length === 0;
-    const newTitle = isFirstMessage ? generateChatTitle(userMessage.content) : undefined;
+    const title =
+      get().messages.length === 0 &&
+      generateChatTitle(userMessage.content);
 
-    // Optimistic update with user message
-    set((state) => {
-      const updatedMessages = [...state.messages, userMessage];
-      const updatedChats = state.chats
-        .map(c =>
-          c.id === chatId
-            ? { ...c, messages: updatedMessages, updatedAt: new Date(), ...(newTitle && { title: newTitle }) } :
-            c
-        )
-        .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
-
-      return { messages: updatedMessages, input: "", status: "submitted", chats: updatedChats };
-    });
+    performStateUpdate(set, userMessage, chatId, title);
 
     const controller = new AbortController();
     set({ abortController: controller });
 
-    const finalize = async () => {
-      const finalMessages = get().messages;
-      const finalDate = new Date();
-      const currentUser = get().currentUser;
-
-      set(state => ({
-        status: "ready",
-        abortController: null,
-        chats: state.chats
-          .map(c =>
-            c.id === chatId
-              ? { ...c, messages: finalMessages, updatedAt: finalDate, ...(newTitle && { title: newTitle }) }
-              : c
-          )
-          .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime()),
-      }));
-
-      if (!currentUser) {
-        console.error("User not authenticated for final update.");
-        return;
-      }
-
-      await updateConversation(chatId, currentUser.uid, {
-        messages: finalMessages,
-        updatedAt: finalDate,
-        ...(newTitle && { title: newTitle }),
-      });
-    };
-
     try {
-      const currentUser = get().currentUser;
-      if (!currentUser) {
-        throw new Error("User not Authenticated.");
-      }
-
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: [userMessage],
-          mode,
-          conversationId: chatId,
-          userId: currentUser.uid,
+          mode
         }),
         signal: controller.signal,
       });
 
-      if (!response.body) throw new Error("No response body from API.");
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-
-      let assistantResponse = "";
-      const assistantMessageId = crypto.randomUUID();
-
-      // Add empty assistant message placeholder + switch to streaming mode
-      set(state => ({
-        status: "streaming",
-        messages: [...state.messages, {
-          id: assistantMessageId,
-          role: "assistant",
-          content: "",
-          timestamp: Date.now()
-        }]
-      }));
-
-      // Stream the response
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        assistantResponse += decoder.decode(value, { stream: true });
-
-        set(state => ({
-          messages: state.messages.map(msg =>
-            msg.id === assistantMessageId ? { ...msg, content: assistantResponse } : msg
-          )
-        }));
-      }
-
-      // Done streaming → mark ready + update conversation and Firestore
-      await finalize();
+      await handleStreamingResponse(response, set);
+      await finaliseConversation(set, get, chatId, title);
 
     } catch (err: any) {
-      if (err.name === 'AbortError') {
-        console.log('Streaming stopped by user.');
-        await finalize();
-      } else {
-        console.error(`Error sending ${mode} message:`, err);
-        set({ status: "error", abortController: null });
-        throw err;
-      }
+      await handleSendError(err, set, get, chatId, title);
+      throw err;
     }
   },
 
   handleQuickAction: (action, chatId, mode) => {
-    get().setInput(action);
-    get().sendMessage(chatId, mode);
+    get().sendMessage(chatId, mode, action);
   },
 
   stopStreaming: () => {
